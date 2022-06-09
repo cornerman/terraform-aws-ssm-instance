@@ -1,6 +1,7 @@
 # ssm-instance
 
 Terraform Module to setup a plain ec2 instance with ssm.
+Uses the latest Amazon Linux 2 AMI for the instance.
 
 Example:
 ```terraform
