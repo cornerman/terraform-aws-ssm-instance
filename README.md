@@ -13,10 +13,11 @@ module "proxy_us" {
   vpc_id      = "..."
   subnet_id   = "..."
 
-  egress_everywhere = true
-
-  # extra_security_groups   = [ "..." ]
-  # extra_iam_policies      = [ "..." ]
-  # cloudinit_shellscrpt    = file("./init.sh")
+  # egress_everywhere     = true
+  # instance_type         = "t3.micro"
+  # root_volume_size_gb   = 20
+  # extra_security_groups = [ "..." ]
+  # extra_iam_policies    = [ "..." ]
+  # cloudinit_shellscrpt  = file("./init.sh")
 }
 ```

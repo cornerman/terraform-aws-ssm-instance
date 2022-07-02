@@ -10,9 +10,19 @@ variable "vpc_id" {
   type = string
 }
 
+variable "instance_type" {
+  type    = string
+  default = "t3.micro"
+}
+
+variable "root_volume_size_gb" {
+  type    = number
+  default = 20
+}
+
 variable "egress_everywhere" {
   type    = bool
-  default = false
+  default = true
 }
 
 variable "cloudinit_shellscript" {

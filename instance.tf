@@ -24,7 +24,7 @@ data "aws_ami" "amazon2" {
 
 resource "aws_instance" "instance" {
   ami           = data.aws_ami.amazon2.id
-  instance_type = "t3.micro"
+  instance_type = var.instance_type
 
   user_data              = data.template_cloudinit_config.instance_userdata.rendered
   iam_instance_profile   = aws_iam_instance_profile.instance.id
@@ -32,7 +32,7 @@ resource "aws_instance" "instance" {
   vpc_security_group_ids = concat(aws_security_group.instance.*.id, var.extra_security_groups)
 
   root_block_device {
-    volume_size = 100
+    volume_size = var.root_volume_size_gb
   }
 }
 
