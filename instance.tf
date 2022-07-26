@@ -34,6 +34,10 @@ resource "aws_instance" "instance" {
   root_block_device {
     volume_size = var.root_volume_size_gb
   }
+
+  tags = {
+    Name = "${var.name_prefix}-instance"
+  }
 }
 
 data "template_cloudinit_config" "instance_userdata" {
