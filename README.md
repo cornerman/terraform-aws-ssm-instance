@@ -18,6 +18,6 @@ module "proxy_us" {
   # root_volume_size_gb   = 20
   # extra_security_groups = [ "..." ]
   # extra_iam_policies    = [ "..." ]
-  # cloudinit_shellscrpt  = file("./init.sh")
+  # cloudinit_shellscript  = file("./init.sh")
 }
 ```
