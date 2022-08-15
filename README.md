@@ -7,7 +7,7 @@ Example:
 ```terraform
 module "proxy_us" {
   source = "cornerman/ssm-instance/aws"
-  version = "0.1.0"
+  version = "0.2.0"
 
   name_prefix = "my-server"
   subnet_id   = "..."
