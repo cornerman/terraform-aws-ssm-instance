@@ -10,7 +10,6 @@ module "proxy_us" {
   version = "0.1.0"
 
   name_prefix = "my-server"
-  vpc_id      = "..."
   subnet_id   = "..."
 
   # egress_everywhere     = true

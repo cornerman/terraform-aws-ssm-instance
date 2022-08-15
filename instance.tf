@@ -1,7 +1,11 @@
+data "aws_subnet" "subnet" {
+  id = var.subnet_id
+}
+
 resource "aws_security_group" "instance" {
   count  = var.egress_everywhere ? 1 : 0
   name   = "${var.name_prefix}-instance"
-  vpc_id = var.vpc_id
+  vpc_id = data.aws_subnet.subnet.vpc_id
 
   egress {
     from_port        = 0
@@ -28,7 +32,7 @@ resource "aws_instance" "instance" {
 
   user_data              = data.template_cloudinit_config.instance_userdata.rendered
   iam_instance_profile   = aws_iam_instance_profile.instance.id
-  subnet_id              = var.subnet_id
+  subnet_id              = data.aws_subnet.subnet.id
   vpc_security_group_ids = concat(aws_security_group.instance.*.id, var.extra_security_groups)
 
   root_block_device {
