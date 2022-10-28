@@ -1,3 +1,17 @@
+locals {
+  cloudinit_config = <<EOF
+Content-Type: multipart/mixed; boundary="MIMEBOUNDARY"
+MIME-Version: 1.0
+
+--MIMEBOUNDARY
+Content-Transfer-Encoding: 7bit
+Content-Type: text/x-shellscript
+Mime-Version: 1.0
+
+${var.cloudinit_shellscript}
+EOF
+}
+
 data "aws_subnet" "subnet" {
   id = var.subnet_id
 }
@@ -10,16 +24,6 @@ data "aws_ami" "amazon2" {
     values = ["amzn2-ami-hvm-*-x86_64-ebs"]
   }
   owners = ["amazon"]
-}
-
-data "template_cloudinit_config" "instance_userdata" {
-  gzip          = false
-  base64_encode = false
-
-  part {
-    content_type = "text/x-shellscript"
-    content      = var.cloudinit_shellscript
-  }
 }
 
 resource "aws_security_group" "instance" {
@@ -74,7 +78,7 @@ resource "aws_instance" "instance" {
   ami           = data.aws_ami.amazon2.id
   instance_type = var.instance_type
 
-  user_data              = data.template_cloudinit_config.instance_userdata.rendered
+  user_data              = local.cloudinit_config
   iam_instance_profile   = aws_iam_instance_profile.instance.id
   subnet_id              = data.aws_subnet.subnet.id
   vpc_security_group_ids = concat(aws_security_group.instance.*.id, var.extra_security_groups)
