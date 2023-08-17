@@ -35,3 +35,8 @@ variable "extra_iam_policies" {
   type    = list(string)
   default = []
 }
+
+variable "architecture" {
+  type    = string
+  default = "x86_64"
+}
